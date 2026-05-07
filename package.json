@@ -1,0 +1,104 @@
+{
+  "name": "laravel-stub-generator",
+  "displayName": "Laravel Stub Generator",
+  "description": "Comprehensive Laravel API scaffolding tool with advanced code generation",
+  "version": "1.0.0",
+  "publisher": "laravel-tools",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other", "Snippets"],
+  "keywords": ["laravel", "php", "stub", "generator", "api", "scaffold"],
+  "icon": "media/icon.png",
+  "activationEvents": ["workspaceContains:**/artisan"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "laravel-stub-generator.generate",
+        "title": "Generate Laravel Stubs",
+        "category": "Laravel"
+      },
+      {
+        "command": "laravel-stub-generator.batchGenerate",
+        "title": "Batch Generate Laravel Stubs",
+        "category": "Laravel"
+      },
+      {
+        "command": "laravel-stub-generator.generateFromSchema",
+        "title": "Generate Model from Migration Schema",
+        "category": "Laravel"
+      },
+      {
+        "command": "laravel-stub-generator.generateApiDocs",
+        "title": "Generate OpenAPI Documentation",
+        "category": "Laravel"
+      },
+      {
+        "command": "laravel-stub-generator.rollback",
+        "title": "Rollback Last Generation",
+        "category": "Laravel"
+      },
+      {
+        "command": "laravel-stub-generator.exportPreset",
+        "title": "Export Configuration Preset",
+        "category": "Laravel"
+      },
+      {
+        "command": "laravel-stub-generator.importPreset",
+        "title": "Import Configuration Preset",
+        "category": "Laravel"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "laravel-stub-generator",
+          "title": "Laravel Stub Generator",
+          "icon": "media/sidebar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "laravel-stub-generator": [
+        {
+          "type": "webview",
+          "id": "laravelStubGenerator.sidebar",
+          "name": "Generator"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Laravel Stub Generator",
+      "properties": {
+        "laravelStubGenerator.autoOpenFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically open generated files in editor"
+        },
+        "laravelStubGenerator.defaultMergeStrategy": {
+          "type": "string",
+          "enum": ["backup", "skip", "replace", "append"],
+          "default": "backup",
+          "description": "Default merge strategy when files already exist"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@types/uuid": "^9.0.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
+}

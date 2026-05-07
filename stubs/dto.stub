@@ -1,0 +1,24 @@
+<?php
+
+namespace {{DtoNamespace}};
+
+class {{EntityName}}Data
+{
+    public function __construct(
+        // TODO: Add DTO properties
+    ) {}
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            // TODO: Map array to properties
+        );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            // TODO: Map properties to array
+        ];
+    }
+}

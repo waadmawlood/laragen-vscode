@@ -1,0 +1,71 @@
+<?php
+
+namespace {{namespace}};
+
+use App\Http\Controllers\Controller;
+use {{RequestNamespace}}\{{EntityName}}StoreRequest;
+use {{RequestNamespace}}\{{EntityName}}UpdateRequest;
+use {{ResourceNamespace}}\{{EntityName}}Resource;
+// use {{DtoNamespace}}\{{EntityName}}Data;
+use {{RepositoryNamespace}}\{{EntityName}}Repository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
+class {{EntityName}}Controller extends Controller
+{
+    public function __construct(
+        private readonly {{EntityName}}Repository $repository
+    ) {}
+
+    /**
+     * Display a listing of {{EntityName}} resources.
+     */
+    public function index(): AnonymousResourceCollection
+    {
+        $items = $this->repository->paginate();
+
+        return {{EntityName}}Resource::collection($items);
+    }
+
+    /**
+     * Store a newly created {{EntityName}}.
+     */
+    public function store({{EntityName}}StoreRequest $request): {{EntityName}}Resource
+    {
+        $item = $this->repository->create($request->validated());
+
+        return new {{EntityName}}Resource($item);
+    }
+
+    /**
+     * Display the specified {{EntityName}}.
+     */
+    public function show(int $id): {{EntityName}}Resource
+    {
+        $item = $this->repository->findOrFail($id);
+
+        return new {{EntityName}}Resource($item);
+    }
+
+    /**
+     * Update the specified {{EntityName}}.
+     */
+    public function update({{EntityName}}UpdateRequest $request, int $id): {{EntityName}}Resource
+    {
+        $item = $this->repository->findOrFail($id);
+        $this->repository->update($item, $request->validated());
+
+        return new {{EntityName}}Resource($item->fresh());
+    }
+
+    /**
+     * Remove the specified {{EntityName}}.
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        $item = $this->repository->findOrFail($id);
+        $this->repository->delete($item);
+
+        return response()->json(null, 204);
+    }
+}

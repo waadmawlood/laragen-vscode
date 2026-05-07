@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ModelNamespace}};
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class {{EntityName}} extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        // TODO: Add fillable fields
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    // ─── Relationships ──────────────────────────────────────────────────────────
+
+    // ─── Scopes ─────────────────────────────────────────────────────────────────
+
+    // ─── Accessors / Mutators ────────────────────────────────────────────────────
+}

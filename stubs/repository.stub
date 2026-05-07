@@ -1,0 +1,39 @@
+<?php
+
+namespace {{RepositoryNamespace}};
+
+use {{ModelNamespace}}\{{EntityName}};
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+class {{EntityName}}Repository
+{
+    public function __construct(
+        private readonly {{EntityName}} $model
+    ) {}
+
+    public function paginate(int $perPage = 15): LengthAwarePaginator
+    {
+        return $this->model->newQuery()->latest()->paginate($perPage);
+    }
+
+    public function findOrFail(int $id): {{EntityName}}
+    {
+        return $this->model->newQuery()->findOrFail($id);
+    }
+
+    public function create(array $data): {{EntityName}}
+    {
+        return $this->model->newQuery()->create($data);
+    }
+
+    public function update({{EntityName}} $model, array $data): bool
+    {
+        return $model->update($data);
+    }
+
+    public function delete({{EntityName}} $model): bool
+    {
+        return (bool) $model->delete();
+    }
+}
