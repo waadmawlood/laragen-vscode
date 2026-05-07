@@ -7,6 +7,10 @@
   "engines": {
     "vscode": "^1.85.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/waadmawlood/laragen-vscode.git"
+  },
   "categories": ["Other", "Snippets"],
   "keywords": ["laravel", "php", "stub", "generator", "api", "scaffold"],
   "icon": "media/icon.png",
