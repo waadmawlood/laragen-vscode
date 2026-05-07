@@ -1,7 +1,7 @@
 # Laravel Stub Generator
 
 <p align="center">
-  <img src="media/sidebar-icon.svg" width="100" alt="Laravel Stub Generator">
+  <img src="media/banner.jpg" width="100" alt="Laravel Stub Generator">
 </p>
 
 A powerful VS Code extension for generating Laravel API components with full control over paths and namespaces.
