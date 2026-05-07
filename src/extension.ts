@@ -8,43 +8,53 @@ import { exportPreset, importPreset } from './commands/presets';
 import { DEFAULT_CONFIG } from './models/stubConfiguration';
 
 export function activate(context: vscode.ExtensionContext): void {
-  const provider = new StubGeneratorProvider(context.extensionUri, context);
-
-  // Register webview sidebar
-  context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(
-      StubGeneratorProvider.viewType,
-      provider,
-      { webviewOptions: { retainContextWhenHidden: true } }
-    )
-  );
+  console.log('[laragen] Activating...');
+  
+  try {
+    const provider = new StubGeneratorProvider(context.extensionUri, context);
+    console.log('[laragen] Provider created');
+    
+    context.subscriptions.push(
+      vscode.window.registerWebviewViewProvider(
+        StubGeneratorProvider.viewType,
+        provider,
+        { webviewOptions: { retainContextWhenHidden: true } }
+      )
+    );
+    console.log('[laragen] Provider registered');
+  } catch (err) {
+    console.error('[laragen] Activation error:', err);
+  }
 
   const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ?? '';
 
   // Register commands
   context.subscriptions.push(
-    vscode.commands.registerCommand('laravel-stub-generator.generate', () => {
-      vscode.commands.executeCommand('laravelStubGenerator.sidebar.focus');
+    vscode.commands.registerCommand('laragen.generate', async () => {
+      // vscode.commands.executeCommand('laravelStubGenerator.sidebar.focus');
+      await vscode.commands.executeCommand(
+        'workbench.view.extension.laragen'
+      );
     }),
 
-    vscode.commands.registerCommand('laravel-stub-generator.batchGenerate', async () => {
+    vscode.commands.registerCommand('laragen.batchGenerate', async () => {
       const config = context.workspaceState.get('laravelStubConfig') ?? DEFAULT_CONFIG;
       await batchGenerate(config as any, workspaceRoot);
     }),
 
-    vscode.commands.registerCommand('laravel-stub-generator.generateFromSchema', async () => {
+    vscode.commands.registerCommand('laragen.generateFromSchema', async () => {
       const config = context.workspaceState.get('laravelStubConfig') ?? DEFAULT_CONFIG;
       const cfg = config as any;
       await generateFromSchema(workspaceRoot, cfg.defaultVersion ?? 'v1');
     }),
 
-    vscode.commands.registerCommand('laravel-stub-generator.generateApiDocs', async () => {
+    vscode.commands.registerCommand('laragen.generateApiDocs', async () => {
       const config = context.workspaceState.get('laravelStubConfig') ?? DEFAULT_CONFIG;
       const cfg = config as any;
       await generateApiDocs(workspaceRoot, cfg.defaultVersion ?? 'v1');
     }),
 
-    vscode.commands.registerCommand('laravel-stub-generator.rollback', async () => {
+    vscode.commands.registerCommand('laragen.rollback', async () => {
       if (!workspaceRoot) {
         vscode.window.showErrorMessage('No workspace open.');
         return;
@@ -66,12 +76,12 @@ export function activate(context: vscode.ExtensionContext): void {
       }
     }),
 
-    vscode.commands.registerCommand('laravel-stub-generator.exportPreset', async () => {
+    vscode.commands.registerCommand('laragen.exportPreset', async () => {
       const config = context.workspaceState.get('laravelStubConfig') ?? DEFAULT_CONFIG;
       await exportPreset(config as any);
     }),
 
-vscode.commands.registerCommand('laravel-stub-generator.importPreset', async () => {
+vscode.commands.registerCommand('laragen.importPreset', async () => {
       const preset = await importPreset();
       if (preset) {
         const existing = (context.workspaceState.get('laravelStubConfig') ?? DEFAULT_CONFIG) as any;
@@ -85,7 +95,7 @@ vscode.commands.registerCommand('laravel-stub-generator.importPreset', async () 
       }
     }),
 
-    vscode.commands.registerCommand('laravel-stub-generator.openFile', async (filePath: string) => {
+    vscode.commands.registerCommand('laragen.openFile', async (filePath: string) => {
       if (!filePath) return;
       try {
         const doc = await vscode.workspace.openTextDocument(filePath);
@@ -105,7 +115,7 @@ vscode.commands.registerCommand('laravel-stub-generator.importPreset', async () 
         'Generate from Schema'
       ).then(sel => {
         if (sel) {
-          vscode.commands.executeCommand('laravel-stub-generator.generateFromSchema');
+          vscode.commands.executeCommand('laragen.generateFromSchema');
         }
       });
     });

@@ -216,12 +216,15 @@ export class StubGeneratorProvider implements vscode.WebviewViewProvider {
         case 'openFile': {
           const { filePath } = message;
           if (!filePath) break;
-          try {
-            const doc = await vscode.workspace.openTextDocument(filePath);
-            await vscode.window.showTextDocument(doc, { preview: false });
-          } catch (err: any) {
-            vscode.window.showErrorMessage(`Failed to open file: ${err.message}`);
-          }
+try {
+      const html = this._getHtmlContent(webviewView.webview);
+      console.log('[laragen] HTML length:', html.length);
+      webviewView.webview.html = html;
+      console.log('[laragen] Webview HTML set');
+    } catch (err) {
+      console.error('[laragen] Failed to set HTML:', err);
+      webviewView.webview.html = '<html><body><h1>Error loading</h1><pre>' + String(err) + '</pre></body></html>';
+    }
           break;
         }
       }

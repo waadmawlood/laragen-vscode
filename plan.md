@@ -111,7 +111,7 @@ interface FeatureConfig {
 **Problem**: Currently can only generate one entity at a time.
 
 **Solution**:
-- Create new command `laravel-stub-generator.batchGenerate`
+- Create new command `laragen.batchGenerate`
 - Input method: QuickPick multi-select UI or comma-separated input
 - Process entities sequentially with progress indicator
 - Option to use same version for all or prompt per entity
@@ -311,8 +311,8 @@ generate: Post API components
 - `src/commands/presets.ts`
 
 **Commands**:
-- `laravel-stub-generator.exportPreset`
-- `laravel-stub-generator.importPreset`
+- `laragen.exportPreset`
+- `laragen.importPreset`
 
 **Preset Schema**:
 ```json
@@ -372,13 +372,13 @@ Multiple saved configurations:
 
 ```typescript
 // Save named preset
-vscode.commands.registerCommand('laravel-stub-generator.savePreset', async () => {
+vscode.commands.registerCommand('laragen.savePreset', async () => {
   const name = await vscode.window.showInputBox({ placeHolder: 'Preset name' });
   await stubConfig.savePreset(name);
 });
 
 // Load preset
-vscode.commands.registerCommand('laravel-stub-generator.loadPreset', async () => {
+vscode.commands.registerCommand('laragen.loadPreset', async () => {
   const presets = await stubConfig.getPresets();
   const choice = await vscode.window.showQuickPick(presets.map(p => p.name));
   await stubConfig.loadPreset(choice);
@@ -390,7 +390,7 @@ vscode.commands.registerCommand('laravel-stub-generator.loadPreset', async () =>
 ## File Structure After Implementation
 
 ```
-laravel-stub-generator/
+laragen/
 ├── src/
 │   ├── extension.ts                  (modified)
 │   ├── stubGeneratorProvider.ts      (modified)

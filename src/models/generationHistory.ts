@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import { v4 as uuidv4 } from 'uuid';
+
+function generateId(): string {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
 
 export interface GenerationRecord {
   id: string;
@@ -46,7 +49,7 @@ export class GenerationHistory {
   add(entity: string, version: string, files: string[], features: string[]): GenerationRecord {
     const history = this.read();
     const record: GenerationRecord = {
-      id: uuidv4(),
+      id: generateId(),
       timestamp: new Date().toISOString(),
       entity,
       version,

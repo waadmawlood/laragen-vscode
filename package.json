@@ -1,9 +1,9 @@
 {
-  "name": "laravel-stub-generator",
-  "displayName": "Laravel Stub Generator",
+  "name": "laragen",
+  "displayName": "Laravel Generator Stub",
   "description": "Comprehensive Laravel API scaffolding tool with advanced code generation",
-  "version": "1.0.0",
-  "publisher": "laravel-stub-generator",
+  "version": "1.0.3",
+  "publisher": "waad-mawlood",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -14,42 +14,45 @@
   "categories": ["Other", "Snippets"],
   "keywords": ["laravel", "php", "stub", "generator", "api", "scaffold"],
   "icon": "media/icon.png",
-  "activationEvents": ["workspaceContains:**/artisan"],
+"activationEvents": [
+    "onCommand:laragen.generate",
+    "onView:laravelStubGenerator.sidebar"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "laravel-stub-generator.generate",
+        "command": "laragen.generate",
         "title": "Generate Laravel Stubs",
         "category": "Laravel"
       },
       {
-        "command": "laravel-stub-generator.batchGenerate",
+        "command": "laragen.batchGenerate",
         "title": "Batch Generate Laravel Stubs",
         "category": "Laravel"
       },
       {
-        "command": "laravel-stub-generator.generateFromSchema",
+        "command": "laragen.generateFromSchema",
         "title": "Generate Model from Migration Schema",
         "category": "Laravel"
       },
       {
-        "command": "laravel-stub-generator.generateApiDocs",
+        "command": "laragen.generateApiDocs",
         "title": "Generate OpenAPI Documentation",
         "category": "Laravel"
       },
       {
-        "command": "laravel-stub-generator.rollback",
+        "command": "laragen.rollback",
         "title": "Rollback Last Generation",
         "category": "Laravel"
       },
       {
-        "command": "laravel-stub-generator.exportPreset",
+        "command": "laragen.exportPreset",
         "title": "Export Configuration Preset",
         "category": "Laravel"
       },
       {
-        "command": "laravel-stub-generator.importPreset",
+        "command": "laragen.importPreset",
         "title": "Import Configuration Preset",
         "category": "Laravel"
       }
@@ -57,14 +60,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "laravel-stub-generator",
+          "id": "laragen",
           "title": "Laravel Stub Generator",
           "icon": "media/sidebar-icon.svg"
         }
       ]
     },
     "views": {
-      "laravel-stub-generator": [
+      "laragen": [
         {
           "type": "webview",
           "id": "laravelStubGenerator.sidebar",
@@ -98,11 +101,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.85.0",
-    "@types/uuid": "^9.0.0",
     "typescript": "^5.3.0",
-    "@vscode/vsce": "^2.22.0"
-  },
-  "dependencies": {
-    "uuid": "^9.0.0"
+    "@vscode/vsce": "^3.0.0"
   }
 }

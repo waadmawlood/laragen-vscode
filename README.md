@@ -50,7 +50,7 @@ npm run compile
 npm run package
 
 # Install the extension
-code --install-extension laravel-stub-generator-1.0.0.vsix
+code --install-extension laragen-1.0.0.vsix
 ```
 
 ---
