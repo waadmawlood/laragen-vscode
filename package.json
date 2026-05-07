@@ -3,7 +3,7 @@
   "displayName": "Laravel Stub Generator",
   "description": "Comprehensive Laravel API scaffolding tool with advanced code generation",
   "version": "1.0.0",
-  "publisher": "laravel-tools",
+  "publisher": "laravel-stub-generator",
   "engines": {
     "vscode": "^1.85.0"
   },

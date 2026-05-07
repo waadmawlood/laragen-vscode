@@ -170,7 +170,6 @@ Each feature supports:
 
 - VS Code 1.85+
 - Node.js 18+
-- Laravel project with `artisan` in root
 
 ---
 
