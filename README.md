@@ -8,6 +8,10 @@ A powerful VS Code extension for generating Laravel API components with full con
 
 ---
 
+![Preview](preview.gif)
+
+---
+
 ## Features
 
 ### 🚀 Core Generation
@@ -110,10 +114,10 @@ Each feature supports:
 | Feature | Default Path | Default Namespace |
 |---------|--------------|-------------------|
 | controller | `app/Http/Controllers/Api` | `App\Http\Controllers\Api` |
-| repository | `app/Repositories` | `App\Repositories` |
+| repository | `app/Http/Repositories` | `App\Http\Repositories` |
 | resource | `app/Http/Resources` | `App\Http\Resources` |
 | validation | `app/Http/Requests` | `App\Http\Requests` |
-| dto | `app/DTOs` | `App\DTOs` |
+| dto | `app/Http/Dtos` | `App\Http\Dtos` |
 | model | `app/Models` | `App\Models` |
 | policy | `app/Policies` | `App\Policies` |
 
@@ -132,10 +136,10 @@ Each feature supports:
 | `{{version}}` | lowercase version | `v1` |
 | `{{namespace}}` | Feature namespace | `App\Http\Controllers\Api\V1` |
 | `{{ControllerNamespace}}` | Controller namespace | `App\Http\Controllers\Api\V1` |
-| `{{RepositoryNamespace}}` | Repository namespace | `App\Repositories\V1` |
+| `{{RepositoryNamespace}}` | Repository namespace | `App\Http\Repositories\V1` |
 | `{{ResourceNamespace}}` | Resource namespace | `App\Http\Resources\V1` |
 | `{{RequestNamespace}}` | Request namespace | `App\Http\Requests\V1` |
-| `{{DtoNamespace}}` | DTO namespace | `App\DTOs\V1` |
+| `{{DtoNamespace}}` | DTO namespace | `App\Http\Dtos\V1` |
 | `{{ModelNamespace}}` | Model namespace | `App\Models` |
 | `{{PolicyNamespace}}` | Policy namespace | `App\Policies` |
 

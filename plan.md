@@ -45,16 +45,16 @@ Default paths and namespaces:
 ### Current Stubs
 | File | Status | Notes |
 |------|--------|-------|
-| `model.stub` | Updated | Uses `{{ModelNamespace}}` placeholder |
-| `migration.stub` | Ready | Basic migration |
-| `controller.stub` | Updated | Uses `{{namespace}}`, `{{RequestNamespace}}`, `{{ResourceNamespace}}`, `{{RepositoryNamespace}}` |
-| `repository.stub` | Updated | Uses `{{RepositoryNamespace}}` placeholder |
-| `policy.stub` | Updated | Uses `{{PolicyNamespace}}`, `{{ModelNamespace}}` placeholders |
-| `route.stub` | Ready | API route prefix |
-| `resource.stub` | Updated | Uses `{{ResourceNamespace}}` placeholder |
-| `dto.stub` | Updated | Uses `{{DtoNamespace}}` placeholder |
-| `store_validation.stub` | Updated | Uses `{{RequestNamespace}}` placeholder |
-| `update_validation.stub` | Updated | Uses `{{RequestNamespace}}` placeholder |
+| `model.stub` | ✅ | Uses `{{ModelNamespace}}` placeholder |
+| `migration.stub` | ✅ | Basic migration |
+| `controller.stub` | ✅ | Uses `{{namespace}}`, `{{RequestNamespace}}`, `{{ResourceNamespace}}`, `{{RepositoryNamespace}}` |
+| `repository.stub` | ✅ | Uses `{{RepositoryNamespace}}` placeholder |
+| `policy.stub` | ✅ | Uses `{{PolicyNamespace}}`, `{{ModelNamespace}}` placeholders |
+| `route` | ✅ | Generated inline (not a stub file) |
+| `resource.stub` | ✅ | Uses `{{ResourceNamespace}}` placeholder |
+| `dto.stub` | ✅ | Uses `{{DtoNamespace}}` placeholder |
+| `store_validation.stub` | ✅ | Uses `{{RequestNamespace}}` placeholder |
+| `update_validation.stub` | ✅ | Uses `{{RequestNamespace}}` placeholder |
 
 ### Template Placeholders
 | Placeholder | Description |
@@ -90,11 +90,13 @@ interface FeatureConfig {
 
 ## Implementation Roadmap
 
+> ⚠️ **All phases below are now IMPLEMENTED** - See "Completed Features" section below.
+
 ### Phase 1: Core Generation Enhancements
 **Priority: HIGH** - Immediate productivity gains
 
 #### 1.1 Full CRUD Request Generation
-**Problem**: Only `StoreRequest` is generated, but controller requires both `StoreRequest` and `UpdateRequest`.
+**Status**: ✅ COMPLETED - Both `StoreRequest` and `UpdateRequest` are generated
 
 **Solution**: 
 - Add `update_validation` to `StubConfig` interface in `src/models/stubConfiguration.ts`
@@ -108,7 +110,7 @@ interface FeatureConfig {
 - `src/stubGeneratorProvider.ts`
 
 #### 1.2 Batch Entity Generation
-**Problem**: Currently can only generate one entity at a time.
+**Status**: ✅ COMPLETED - Batch generation via `laragen.batchGenerate` command
 
 **Solution**:
 - Create new command `laragen.batchGenerate`
@@ -129,7 +131,7 @@ interface FeatureConfig {
 ```
 
 #### 1.3 Template Preview
-**Problem**: Users can't see the generated code before files are written.
+**Status**: ✅ COMPLETED - Preview button shows generated code before writing
 
 **Solution**:
 - Add "Preview" button in sidebar before generation
@@ -151,7 +153,7 @@ interface FeatureConfig {
 **Priority: HIGH** - Deeper framework knowledge
 
 #### 2.1 Laravel Version Detection
-**Problem**: Templates may need to differ based on Laravel version (e.g., 9 vs 10 vs 11).
+**Status**: ✅ COMPLETED - Auto-detects Laravel version from `composer.json`
 
 **Solution**:
 - Read `composer.json` from workspace
@@ -170,7 +172,7 @@ interface FeatureConfig {
 3. Default to latest (v11)
 
 #### 2.2 Schema-to-Model Generation
-**Problem**: Users may want to update models based on existing migrations.
+**Status**: ✅ COMPLETED - Parse migrations to generate/update models via `Schema → Model` command
 
 **Solution**:
 - Parse migration files in `database/migrations/`
@@ -194,7 +196,7 @@ interface FeatureConfig {
 | `foreignId` | - | (creates relationship) |
 
 #### 2.3 API Documentation Generation
-**Problem**: Need to generate API docs from routes and DTOs.
+**Status**: ✅ COMPLETED - Generate OpenAPI JSON via `Generate OpenAPI Docs` button
 
 **Solution**:
 - Parse route definitions from generated route stub
@@ -225,7 +227,7 @@ interface FeatureConfig {
 **Priority: MEDIUM** - Production readiness
 
 #### 3.1 Generation History & Rollback
-**Problem**: No way to undo generated files.
+**Status**: ✅ COMPLETED - History stored in `.vscode/laravel-stubs.history.json`, rollback via button
 
 **Solution**:
 - Store history in `.vscode/laravel-stubs.history.json`
@@ -255,7 +257,7 @@ interface FeatureConfig {
 ```
 
 #### 3.2 Git Auto-Commit
-**Problem**: After generation, files need to be committed manually.
+**Status**: ✅ COMPLETED - Auto-commit checkbox with conventional commit message
 
 **Solution**:
 - Optional checkbox in generation UI: "Auto-commit"
@@ -277,7 +279,7 @@ generate: Post API components
 ```
 
 #### 3.3 Merge Strategies
-**Problem**: Unknown behavior when target file already exists.
+**Status**: ✅ COMPLETED - Backup (default), Skip, Replace, Append strategies available
 
 **Solution**: Add strategy selection in UI:
 | Strategy | Behavior |
@@ -300,7 +302,7 @@ generate: Post API components
 ```
 
 #### 3.4 Presets Export/Import
-**Problem**: Same config needs to be shared across team or projects.
+**Status**: ✅ COMPLETED - Export/import configurations as JSON via buttons/commands
 
 **Solution**:
 - Export current config to JSON file
@@ -425,28 +427,53 @@ laragen/
 
 ## Summary
 
-### Completed Features
-- **Custom Base Path & Namespace (v2.1)**: Per-feature custom base path and custom base namespace support
-  - Each feature can have its own custom output path and namespace
-  - Priority: Custom → Default → Fallback
-  - Cross-referencing uses referenced feature's namespace
-  - Version integration: V1 appended to path/namespace when enabled
+### Implemented Features (All Phases Complete)
 
-| Phase | Features | New Files | Complexity |
-|-------|----------|----------|-------------|
-| 1 | CRUD Fix + Batch + Preview | 2 | Medium |
-| 2 | Laravel Detection + Schema + API Docs | 3 | High |
-| 3 | History + Git + Merge + Presets | 4 | Medium |
-| 4 | Polish (auto-open, progress, watcher) | 1 | Low |
-| **Total** | | **~10** | |
+| Phase | Features | Status |
+|-------|----------|--------|
+| 1.1 | Full CRUD Request (Store + Update) | ✅ Complete |
+| 1.2 | Batch Entity Generation | ✅ Complete |
+| 1.3 | Template Preview | ✅ Complete |
+| 2.1 | Laravel Version Detection | ✅ Complete |
+| 2.2 | Schema-to-Model Generation | ✅ Complete |
+| 2.3 | OpenAPI Documentation | ✅ Complete |
+| 3.1 | Generation History & Rollback | ✅ Complete |
+| 3.2 | Git Auto-Commit | ✅ Complete |
+| 3.3 | Merge Strategies (Backup/Skip/Replace/Append) | ✅ Complete |
+| 3.4 | Presets Export/Import | ✅ Complete |
+
+### New Files Added
+- `src/commands/batchGenerate.ts`
+- `src/commands/generateFromSchema.ts`
+- `src/commands/generateApiDocs.ts`
+- `src/commands/presets.ts`
+- `src/models/generationHistory.ts`
+- `src/utils/laravelDetector.ts`
+- `src/utils/schemaParser.ts`
+- `src/webview/previewProvider.ts`
+- `stubs/update_validation.stub`
 
 ---
 
-## Next Steps
+## Completed Features
+- **All Phases Implemented** - See summary table above
+- **Custom Base Path & Namespace**: Per-feature custom output path and namespace
+- **9 Components**: Model, Migration, Controller, Repository, Policy, Resource, DTO, StoreRequest, UpdateRequest
+- **Version Support**: V1, V2, etc. appended to paths/namespaces
+- **Merge Strategies**: Backup (default), Skip, Replace, Append
+- **Git Auto-Commit**: Optional automatic commits
+- **Rollback**: One-click deletion of last generated files
+- **Presets**: Export/import configurations as JSON
+- **Preview Mode**: Preview generated code before writing files
+- **Batch Generation**: Generate multiple entities at once
+- **OpenAPI Docs**: Generate API documentation from routes/DTOs
+- **Schema → Model**: Parse migrations to generate models
 
-1. **Confirm Phase 1 Start**: Should implementation begin with Phase 1 (Core Enhancements)?
-2. **Confirm Priorities**: Any reordering of phases?
-3. **Clarification**:
-   - Preferred batch input format (comma-separated vs QuickPick)?
-   - Merge strategy default (Backup, Skip, Replace)?
-   - Accept ~10 new source files?
+---
+
+## Next Steps (Future Enhancements)
+
+1. Auto-open generated files after generation
+2. Progress notifications for batch operations
+3. File watcher for migration changes
+4. Named presets (multiple saved configurations)
