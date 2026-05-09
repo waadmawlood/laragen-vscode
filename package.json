@@ -2,7 +2,7 @@
   "name": "laragen",
   "displayName": "Laravel Generator Stub",
   "description": "Comprehensive Laravel API scaffolding tool with advanced code generation",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "waad-mawlood",
   "engines": {
     "vscode": "^1.85.0"
